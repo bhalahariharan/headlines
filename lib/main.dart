@@ -1,21 +1,33 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  runApp(Headlines());
+}
 
-class MyApp extends StatelessWidget {
+class Headlines extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'News Application',
+      title: 'Headlines',
       theme: ThemeData(
-        primarySwatch: Colors.cyan,
+        brightness: Brightness.light,
+        primarySwatch: Colors.red,
+        accentColor: Colors.redAccent,
+        fontFamily: 'Lato',
+      ),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+        accentColor: Colors.redAccent,
+        fontFamily: 'Lato',
       ),
       home: MyHomePage(),
     );
@@ -114,31 +126,14 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget textWidget(String text) {
     return Text(
       text,
-      style: TextStyle(fontSize: 16, color: Colors.black, fontFamily: 'Lato'),
+      style: TextStyle(fontSize: 16),
     );
   }
 
   Widget appBar(context) {
     return AppBar(
-      title: Text('Headlines'),
-      centerTitle: true,
-      actions: <Widget>[
-        IconButton(
-          icon: Icon(Icons.info_outline),
-          tooltip: "About Headlines",
-          onPressed: () {
-            showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    title: textWidget("About"),
-                    content: textWidget(
-                        "Headlines is a news application that shows the breaking news headlines in India. To read in detail about the news, click on the tile."),
-                  );
-                });
-          },
-        )
-      ],
+      title: Text('headlines'),
+      elevation: 0.0,
     );
   }
 
